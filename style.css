@@ -1,0 +1,492 @@
+/* --------------------------------------------------------------------------------
+   (إضافة في بداية ملف CSS)
+   -------------------------------------------------------------------------------- */
+
+/* يجعل التمرير بين الأقسام (مثل عند الضغط على رابط في Navbar) سلسًا */
+html {
+  scroll-behavior: smooth;
+}
+
+/* --------------------------------------------------------------------------------
+   1. Global Theme Variables (Dark Mode is Default)
+   -------------------------------------------------------------------------------- */
+:root {
+  /* Shared Colors */
+  --primary-color: #8b5cf6;
+  /* Violet */
+  --secondary-color: #06b6d4;
+  /* Cyan */
+  --gradient-main: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  --box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.3);
+  --transition: all 0.4s ease;
+
+  /* Dark Mode Colors */
+  --bg-main: #0f172a;
+  --bg-card: #1e293b;
+  --bg-navbar: rgba(15, 23, 42, 0.85);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border-color: rgba(255, 255, 255, 0.1);
+
+  /* Scrollbar Colors */
+  --scrollbar-thumb: var(--primary-color);
+  --scrollbar-track: var(--bg-card);
+}
+
+/* --------------------------------------------------------------------------------
+   2. Light Mode Overrides (Applied when body has class .light-theme)
+   -------------------------------------------------------------------------------- */
+.light-theme {
+  --bg-main: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-navbar: rgba(255, 255, 255, 0.95);
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border-color: rgba(0, 0, 0, 0.1);
+
+  /* Scrollbar Colors for Light Mode */
+  --scrollbar-thumb: var(--secondary-color);
+  --scrollbar-track: #e2e8f0;
+}
+
+/* --------------------------------------------------------------------------------
+   3. Base Styles (Using Variables)
+   -------------------------------------------------------------------------------- */
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  overflow-x: hidden;
+  /* Ensure smooth color change when switching themes */
+  transition: background-color var(--transition), color var(--transition);
+  /* Dark Mode Background Effect */
+  background-image: radial-gradient(
+      circle at 10% 20%,
+      rgba(139, 92, 246, 0.1) 0%,
+      transparent 20%
+    ),
+    radial-gradient(
+      circle at 90% 80%,
+      rgba(6, 182, 212, 0.1) 0%,
+      transparent 20%
+    );
+}
+
+.light-theme body {
+  background-image: none !important;
+  /* Remove effect in light mode */
+}
+
+/* --------------------------------------------------------------------------------
+   4. Custom Scrollbar Styles 
+   -------------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 10px;
+  border: 2px solid var(--bg-main);
+  transition: background var(--transition);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-color);
+}
+
+/* Navbar */
+.navbar {
+  background-color: var(--bg-navbar);
+  border-bottom: 1px solid var(--border-color);
+  backdrop-filter: blur(12px);
+  transition: background-color var(--transition);
+}
+
+.nav-link , .navbar-brand {
+  color: var(--text-main) !important;
+  font-weight: 500;
+  position: relative;
+}
+
+/* Buttons */
+.btn-gradient {
+  background: var(--gradient-main);
+  transition: opacity var(--transition), transform 0.2s ease;
+}
+
+.btn-gradient:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.btn-outline-custom {
+  color: var(--text-main);
+  border: 2px solid var(--primary-color);
+  transition: background-color var(--transition), color var(--transition),
+    transform 0.2s ease;
+}
+
+.btn-outline-custom:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Typography */
+.text-gradient {
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Section Title Style */
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+}
+
+/* Cards (Glassmorphism) - Base */
+.glass-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 30px;
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+  transition: var(--transition), box-shadow 0.3s ease, transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Portfolio Image Fix */
+.portfolio-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.portfolio-img-wrapper {
+  overflow: hidden;
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+
+.portfolio-card .glass-card {
+  padding: 0;
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border-color);
+}
+
+/* Contact Form Inputs */
+.form-control {
+  background-color: var(--bg-main) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-main) !important;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.25rem rgba(139, 92, 246, 0.25) !important;
+  border-color: var(--primary-color) !important;
+}
+
+/* --------------------------------------------------------------------------------
+   5. Theme Toggle Switch Style
+   -------------------------------------------------------------------------------- */
+.toggle-switch {
+  width: 48px;
+  height: 24px;
+  background-color: var(--primary-color);
+  border-radius: 12px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color var(--transition);
+  flex-shrink: 0;
+}
+
+.toggle-switch::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.4s ease;
+}
+
+/* Checked state (Light Mode) */
+#toggle:checked + .toggle-switch {
+  background-color: var(--secondary-color);
+}
+
+#toggle:checked + .toggle-switch::before {
+  transform: translateX(24px);
+}
+
+/* Theme Icon Styling */
+#theme-icon {
+  font-size: 1rem;
+  width: 16px;
+  height: 16px;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------------
+   6. Hover Effects & Card Animation 
+   -------------------------------------------------------------------------------- */
+
+/* Card Hover Animation (Applies to all section cards) */
+.cert-img .glass-card:hover,
+.skill-card .glass-card:hover,
+.service-card .glass-card:hover,
+.portfolio-card .glass-card:hover,
+.feedback-card .glass-card:hover,
+.timeline-item.glass-card:hover,
+.awards-card .glass-card:hover,
+.interests-card .glass-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px -10px rgba(139, 92, 246, 0.4);
+  border-color: var(--primary-color);
+}
+
+/* Portfolio Image Zoom */
+.portfolio-card:hover img {
+  transform: scale(1.08);
+}
+
+/* Social Links Hover (Circular effect) */
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 0 8px;
+  font-size: 18px;
+  color: var(--text-main);
+  transition: var(--transition);
+}
+
+.social-link:hover {
+  background: var(--gradient-main);
+  color: white;
+  transform: scale(1.1);
+}
+
+/* Skills Icon Shake (Mini Animation) */
+.skill-card .glass-card:hover img {
+  animation: shake 0.5s;
+  animation-iteration-count: 1;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(0);
+  }
+}
+
+/* --------------------------------------------------------------------------------
+   7. Timeline Specific Styles (for Education and Experience)
+   -------------------------------------------------------------------------------- */
+
+.timeline-container {
+  position: relative;
+  padding-left: 30px;
+}
+
+.timeline-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background-color: var(--border-color);
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  top: 40px;
+  left: -32px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  border: 3px solid var(--bg-main);
+  z-index: 10;
+  transition: background 0.3s ease;
+}
+
+.timeline-item:hover::before {
+  background: var(--secondary-color);
+}
+
+.timeline-item h4 {
+  margin-top: 0;
+}
+
+@media (max-width: 992px) {
+  .timeline-container {
+    padding-left: 20px;
+  }
+
+  .timeline-container::before {
+    left: 0;
+  }
+
+  .timeline-item::before {
+    left: -12px;
+  }
+}
+
+/* --------------------------------------------------------------------------------
+   8. Scroll-to-Top Button (زر العودة للأعلى)
+   -------------------------------------------------------------------------------- */
+#scroll-to-top {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+#scroll-to-top:hover {
+  opacity: 0.8;
+}
+
+/* --------------------------------------------------------------------------------
+   9. New Sections (Awards and Interests) - Basic Styling
+   -------------------------------------------------------------------------------- */
+.awards-card .glass-card,
+.interests-card .glass-card {
+  min-height: 200px;
+}
+
+/* Tech Stack Card Styling */
+.tech-stack-item {
+  padding: 30px 15px;
+  min-height: 150px;
+  justify-content: center;
+  align-items: center;
+  cursor: default;
+  transition: var(--transition);
+}
+
+.tech-stack-item:hover {
+  transform: scale(1.05) translateY(-3px);
+  box-shadow: 0 10px 30px rgba(6, 182, 212, 0.4);
+  border-color: var(--secondary-color);
+}
+
+/* --------------------------------------------------------------------------------
+   10. Professional Testimonials/Feedback Styles (التنسيقات الجديدة)
+   -------------------------------------------------------------------------------- */
+.feedback-item {
+  text-align: left; /* محاذاة لليسار لمظهر احترافي */
+  min-height: 250px;
+}
+
+/* تصميم أيقونة الاقتباس في الخلفية */
+.feedback-item .quote-icon {
+  position: absolute;
+  top: 20px;
+  /* تحديد الموقع يمينًا (لأنه تصميم LTR، لو كان RTL لكان Left) */
+  right: 30px;
+  font-size: 5rem;
+  color: var(--primary-color);
+  opacity: 0.1; /* خافت */
+  z-index: 0;
+  transition: opacity var(--transition);
+}
+
+.light-theme .feedback-item .quote-icon {
+  color: var(--secondary-color);
+}
+
+.feedback-item:hover .quote-icon {
+  opacity: 0.15;
+}
+
+/* التأكد من أن نص الاقتباس يظهر فوق الأيقونة */
+.feedback-item p {
+  position: relative;
+  z-index: 1;
+}
+
+/* Avatar Border Styling in Feedback */
+.feedback-item img {
+  border: 3px solid var(--primary-color) !important;
+}
