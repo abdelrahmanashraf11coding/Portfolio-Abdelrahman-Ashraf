@@ -5,13 +5,21 @@
 /* يجعل التمرير بين الأقسام (مثل عند الضغط على رابط في Navbar) سلسًا */
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+}
+
+/* Use border-box everywhere to avoid unexpected overflow from padding/borders */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 /* --------------------------------------------------------------------------------
    1. Global Theme Variables (Dark Mode is Default)
    -------------------------------------------------------------------------------- */
 :root {
+  /* Navbar height used to compensate min-vh-100 sections */
+  --navbar-height: 72px;
   /* Shared Colors */
   --primary-color: #8b5cf6;
   /* Violet */
@@ -61,7 +69,9 @@ body {
   font-family: "Poppins", sans-serif;
   background-color: var(--bg-main);
   color: var(--text-main);
- 
+  width: 100%;
+  /* (3) منع ظهور السكرول الأفقي على مستوى الجسم أيضاً لزيادة التأثير */
+  overflow-x: hidden;
   /* Ensure smooth color change when switching themes */
   transition: background-color var(--transition), color var(--transition);
   /* Dark Mode Background Effect */
@@ -75,6 +85,29 @@ body {
       rgba(6, 182, 212, 0.1) 0%,
       transparent 20%
     );
+}
+
+/* Ensure images never exceed their containers and don't create extra scroll */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Compensate fixed navbar so .min-vh-100 sections don't force extra vertical scroll */
+.navbar {
+  height: var(--navbar-height);
+}
+
+.hero-section {
+  min-height: calc(100vh - var(--navbar-height));
+  display: flex;
+  align-items: center;
+}
+
+/* Prevent timeline pseudo-elements from creating horizontal overflow */
+.timeline-container {
+  overflow-x: hidden;
 }
 
 .light-theme body {
@@ -113,7 +146,8 @@ body {
   transition: background-color var(--transition);
 }
 
-.nav-link , .navbar-brand {
+.nav-link,
+.navbar-brand {
   color: var(--text-main) !important;
   font-weight: 500;
   position: relative;
